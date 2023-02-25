@@ -7,15 +7,13 @@ This README should:
 2. provide a little explanation as to how it's configured, and
 3. provide some basic commands on how to work with it.
 
-It might also give the impression I understand 100% how everything works; this is an illusion but, nevertheless, things do seem to work.
-
-
 # Technologies used
 * [Django](https://www.djangoproject.com/): The web framework for perfectionists with deadlines (Django builds better web apps with less code).
-* [DRF](www.django-rest-framework.org/): A powerful and flexible toolkit for building Web APIs
+* [Postgresql](https://www.postgresql.org/): A relational database for all your tabular needs.
 * [Docker](https://www.docker.com/): A powerful tool for containerzing applications
 * [Redis](https://redis.io/): A powerful and flexible toolkit for in memory caching
 * [Datatb](https://pypi.org/project/django-dynamic-datatb/): A powerful and flexible toolkit for generating filterable, paginated database tables.
+* [Fakeredis](https://pypi.org/project/fakeredis/): A tool for creating a mock redis server for testing.
 
 ## Installation
 * If you wish to run your own build, first ensure you have python, Docker, Redis and pip3 globally installed in your computer. 
@@ -79,33 +77,30 @@ source .env
 
 1. Install Docker, e.g. [Docker for Mac](https://docs.docker.com/docker-for-mac/install/).
 
-2. Download this repository.
 
-3. Optional: In `docker-compose.yml` change the two `container_name` values from `myproject_db` and `myproject_web` to something that makes sense for your project. e.g. `weblog_db` and `weblog_web` if your project is called weblog.
+2. Optional: In `docker-compose.yml` update the db service to include your postgresql configuration. It is similar to what you have in .env file as follows:
+``` bash
+DATABASE_NAME=yourdb
+DATABASE_USER=yourdbuser
+DATABASE_PASSWORD=yourbdpassword
+DATABASE_HOST=localhost
+DATABASE_PORT=5432
+```
 
-4. If you did that you'll also need to change `myproject_web` in the two scripts within the `/scripts/` directory.
-
-5. Create a `.env` file at the same level as this README, containing the following. This will be used by Docker.
-    ```
-    # Environment settings for local development.
-
-    POSTGRES_USER=mydatabaseuser
-    POSTGRES_PASSWORD=mypassword
-    POSTGRES_DB=mydatabase
-    POSTGRES_HOST=myproject_db
-
-    DJANGO_SETTINGS_MODULE=myproject.myproject.settings.development
-    ```
-
-    **Note:** If you changed `myproject_db` in the previous step, you should change the `POSTGRES_HOST` value to match it in the `.env` file. You can change the other postgres settings if you like, but it's not required.
-
-6. On the command line, within this directory, do this to build the image and
+3. On the command line, within this directory, do this to build the image and
    start the container:
 
-        docker-compose build
+         sudo docker-compose build
+4. Make migrations with the following command :
 
-7. If that's successful you can then start it up. This will start up the database and web server, and display the Django `runserver` logs:
+         sudo  docker exec -it container_id python manage.py migrate
 
-        docker-compose up
+5. If that's successful you can then start it up. This will start up the database and web server, and display the Django `runserver` logs:
 
-8. Open http://0.0.0.0:8000 in your browser.
+       sudo  docker-compose up
+
+6. Open http://0.0.0.0:8000 in your browser. Enjoy!
+
+
+
+
