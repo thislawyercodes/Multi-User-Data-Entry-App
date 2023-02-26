@@ -1,6 +1,5 @@
 # A Multi User Data Entry Application
 This is a Dynamic Django API that allows users to perform basic CRUD operations, as well as create New Tables from existing models.
-It is the submission to JamboPay's technical assesment task.
 
 This README should:
 1. Guide you through getting the Dockerized Django container up and running,
