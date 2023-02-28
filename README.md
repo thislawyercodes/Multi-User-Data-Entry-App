@@ -44,21 +44,17 @@ DATABASE_PASSWORD=yourbdpassword
 DATABASE_HOST=localhost
 DATABASE_PORT=5432
 ```
-4. Export your environment variables
---------------------------------------------
-``` shell
-source .env
-```
-    5. Install the dependencies needed to run the app:
+
+    4. Install the dependencies needed to run the app:
         ```bash
             $ pip3 install -r requirements.txt
         ```
-    6 . Run Unit Tests
+    5 . Run Unit Tests
         ----------------------
         ``` shell
            python3 manage.py test
 
-    7. Make those migrations work
+    6. Make those migrations work
         ```bash
             $ python manage.py makemigrations
             $ python manage.py migrate
